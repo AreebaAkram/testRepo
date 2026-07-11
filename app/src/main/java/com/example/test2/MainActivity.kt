@@ -3,24 +3,27 @@ package com.example.test2
 
 
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -33,10 +36,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Greeting()
-            ProfileCard("Areeba", 20)
-            Login()
+//            Greeting()
+//            ProfileCard("Areeba", 20)
+//            Login()
+            DemoActivity()
         }
+    }
+
+    @Composable
+    fun DemoActivity() {
+        Column() {
+            Greeting()
+            Login()
+            ProfileCard("Areeba", 20)
+            NotificationBadge()
+            Students()
+            StudentList()
+        }
+
     }
 
     @Composable
@@ -59,8 +76,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun Login() {
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+//            verticalArrangement = Arrangement.SpaceBetween,
 //            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .height(300.dp)
                 .padding(16.dp)
@@ -71,6 +89,7 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier
                     .size(60.dp)
             )
+            Spacer(modifier = Modifier.height(16.dp))
             TextField(value = "",
                 onValueChange = {},
                 label = { Text("Username") })
@@ -101,8 +120,71 @@ class MainActivity : ComponentActivity() {
     @Composable
    fun NotificationBadge(){
        Box(){
-           Icon( imageVector = Icons.Default.Notifications, contentDescription = "Notification")
+           Icon(
+               imageVector = Icons.Default.Notifications,
+               contentDescription = "Notification",
+               tint = Color.Blue
+           )
            Text("This is an image")
        }
+//        LazyColumn {
+//            items(100) {
+//                Text(text = "This is item $it")
+//            }
+//        }
    }
+
+    @Composable
+    fun Students() {
+        LazyColumn {
+            item {
+                Text("Areeba")
+            }
+            item {
+                Text("Alizeh")
+            }
+        }
+    }
+
+    @Composable
+    fun StudentList() {
+        val students = listOf(
+            "Ali",
+            "Ahmed",
+            "Areeba",
+            "Sara",
+            "Zain"
+        )
+        LazyColumn(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(16.dp)
+        ) {
+            item{
+                Text("Students", style = MaterialTheme.typography.headlineMedium)
+            }
+            // for every student in students, i'll excute the -> following code
+            // items(Students) -- for every student, run this function
+            items(students, key = {student -> student }) { student ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+//                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = "Person"
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(student)
+                }
+            }
+            item{
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "Add Student")
+                }
+            }
+        }
+    }
 }

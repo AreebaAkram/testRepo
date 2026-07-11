@@ -12,6 +12,7 @@ espressoCore = "3.7.0"
 appcompat = "1.7.1"
 material = "1.12.0"
 constraintlayout = "2.2.1"
+remoteCreationCore = "1.0.0-alpha14"
 
 [libraries]
 
@@ -42,6 +43,7 @@ androidx-appcompat = { group="androidx.appcompat", name="appcompat", version.ref
 material = { group="com.google.android.material", name="material", version.ref="material" }
 
 androidx-constraintlayout = { group="androidx.constraintlayout", name="constraintlayout", version.ref="constraintlayout" }
+androidx-remote-creation-core = { group = "androidx.compose.remote", name = "remote-creation-core", version.ref = "remoteCreationCore" }
 
 [plugins]
 
