@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
@@ -46,12 +47,13 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun DemoActivity() {
         Column() {
-            Greeting()
-            Login()
+//            Greeting()
+//            Login()
             ProfileCard("Areeba", 20)
             NotificationBadge()
             Students()
             StudentList()
+            FoodCategories()
         }
 
     }
@@ -185,6 +187,30 @@ class MainActivity : ComponentActivity() {
                     Text(text = "Add Student")
                 }
             }
+        }
+    }
+
+    @Composable
+    fun FoodCategories() {
+        //best practice is to enclose this in simple column (column -> text + lazy row)
+        Text(
+            "This is an Food categories lazy row",
+            modifier = Modifier
+                .padding(16.dp),
+            style = MaterialTheme.typography.headlineMedium
+        )
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(22.dp)
+        ) {
+            item { Text("Pizza") }
+            item { Text("Burger") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
         }
     }
 }
