@@ -1,8 +1,7 @@
 package com.example.test2
 
-
-
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -19,18 +18,25 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 class MainActivity : ComponentActivity() {
@@ -52,8 +58,10 @@ class MainActivity : ComponentActivity() {
             ProfileCard("Areeba", 20)
             NotificationBadge()
             Students()
-            StudentList()
+//            StudentList()
             FoodCategories()
+//            FirstCard()
+            ShowUsers()
         }
 
     }
@@ -203,7 +211,7 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(22.dp)
+            horizontalArrangement = Arrangement.spacedBy(19.dp)
         ) {
             item { Text("Pizza") }
             item { Text("Burger") }
@@ -211,6 +219,86 @@ class MainActivity : ComponentActivity() {
             item { Text("Pizza") }
             item { Text("Pizza") }
             item { Text("Pizza") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
+            item { Text("Pizza") }
+        }
+    }
+
+    @Composable
+    fun FirstCard() {
+        Card(
+            // elevation, colors, shape -> all are parameters name of function card
+            elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.Blue),
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            onClick = {
+                Toast.makeText(this, "Card Clicked", Toast.LENGTH_SHORT).show()
+            }
+        ) {
+            Column(
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    "Areeba Akram",
+                    modifier = Modifier
+                        .padding(16.dp),
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Text(
+                    "Software Engineer",
+                    style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                )
+            }
+        }
+    }
+
+    // card + lazy column
+    data class users(val name: String, val age: Int)
+
+    @Composable
+    fun userProfileCard(user: users) {
+        Card(
+            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+            shape = RoundedCornerShape(5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(user.name)
+                Text(user.age.toString())
+            }
+
+        }
+    }
+
+    val user1: users = users("Areeba", 20)
+    val user2: users = users("Alizeh", 19)
+    val user3: users = users("Sara", 20)
+
+    val userList = listOf(user1, user2, user3)
+
+    @Composable
+    fun ShowUsers() {
+        LazyColumn {
+            items(userList) { user ->
+                userProfileCard(user)
+            }
         }
     }
 }
+
+
