@@ -32,6 +32,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 
@@ -173,16 +175,21 @@ fun LoginScreen() {
         onValueChange = { username = it }
 
     )
-    LoginTextField(
-        value = password,
-        onValueChange = { password = it }
-    )
+//    LoginTextField(
+//        value = password,
+//        onValueChange = { password = it }
+//    )
+    PasswordTextField(value = password, onValueChange = {password = it})
     Button(
         onClick = {
             println("Username: $username")
             println("Password: $password")
 
-        }
+        },
+        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Blue),
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(5.dp),
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
         Text("Login")
     }
@@ -196,6 +203,21 @@ fun LoginTextField(
 ) {
     OutlinedTextField(
         value = value,
-        onValueChange = onValueChange
+        onValueChange = onValueChange,
+        label = { Text("Username") },
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+@Composable
+fun PasswordTextField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text("Password") },
+        visualTransformation = PasswordVisualTransformation(),
+        modifier = Modifier.fillMaxWidth()
     )
 }
