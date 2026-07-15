@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -36,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,6 +144,9 @@ fun HomeScreen() {
                     .padding(25.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())  // for small screen
+                // use lazy column / row for large screens as nm of compoenents may increase
+
             ){
                 Text(
                     text = "Hello Compose!"
@@ -161,7 +167,8 @@ fun HomeScreen() {
                 ) {
                     Text(text = "Click me")
                 }
-                LoginScreen()
+//                LoginScreen()
+                LoginScreenVM()
             }
         }
     }
@@ -224,4 +231,46 @@ fun PasswordTextField(
         visualTransformation = PasswordVisualTransformation(),
         modifier = Modifier.fillMaxWidth()
     )
+}
+
+// Login screen Compose with ViewModel -- Surviving configuration changes
+
+@Composable
+fun LoginScreenVM(viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier
+            .padding(25.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        OutlinedTextField(
+            value = viewModel.username,
+            onValueChange = {  // callback used to handle the text updatations
+                viewModel.updateUsername(it)
+            },
+            label = {Text("Username")},
+        )
+        OutlinedTextField(
+            value = viewModel.password,
+            onValueChange = {
+                viewModel.updatePassword(it)
+            },
+            label = {Text("Password")},
+        )
+        Button(
+            onClick = {
+                println("Username: ${viewModel.username}")
+                println("Password: ${viewModel.password}")
+
+            },
+            colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Gray),
+            shape = androidx.compose.foundation.shape.RoundedCornerShape(5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text("Login")
+        }
+    }
 }
