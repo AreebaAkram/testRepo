@@ -29,6 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -145,6 +146,7 @@ fun HomeScreen() {
                     text = "Hello Compose!"
                 )
                 var counter by remember { mutableIntStateOf(0) }
+//                var counter by rememberSaveable { mutableIntStateOf(0) }
                 Button(onClick = {
                     counter++
                 }) {
@@ -169,6 +171,8 @@ fun HomeScreen() {
 @Composable
 fun LoginScreen() {
     var username by remember { mutableStateOf("") }
+    // will survives recomposition
+//    var username by rememberSaveable {  mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     LoginTextField(
         value = username,
@@ -186,7 +190,7 @@ fun LoginScreen() {
             println("Password: $password")
 
         },
-        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Blue),
+        colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Gray),
         shape = androidx.compose.foundation.shape.RoundedCornerShape(5.dp),
         modifier = Modifier
             .fillMaxWidth()
