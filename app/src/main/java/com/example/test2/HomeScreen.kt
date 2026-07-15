@@ -20,12 +20,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -155,11 +157,45 @@ fun HomeScreen() {
                 ) {
                     Text(text = "Click me")
                 }
+                LoginScreen()
             }
+        }
+    }
+}
+
+// State Hoisting + Unidirectional data flow (Compose UI architecture)
+@Composable
+fun LoginScreen() {
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    LoginTextField(
+        value = username,
+        onValueChange = { username = it }
+
+    )
+    LoginTextField(
+        value = password,
+        onValueChange = { password = it }
+    )
+    Button(
+        onClick = {
+            println("Username: $username")
+            println("Password: $password")
 
         }
-
+    ) {
+        Text("Login")
     }
 
 }
 
+@Composable
+fun LoginTextField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange
+    )
+}
