@@ -48,7 +48,8 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.remote.creation.core)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
 
