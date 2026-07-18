@@ -6,12 +6,13 @@ class SharedPreHelper(context : Context) {
     private val sharedPreferences = context.getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
 
     companion object {
-        private const val Key_Username = "username"
+        private const val Key_Username = "username" // every value will be stored against the same key
         private const val Key_Password = "password"
         private const val Key_Login = "login"
     }
 
-    fun saveUsername(username: String) {
+    fun saveUsername(username: String) {   // key , value e.g., Key_Username = Areeba
+        // only a sinle value is stored against each key, on updatation previous value replaced
         sharedPreferences.edit().putString(Key_Username, username).apply()
     }
 
@@ -24,10 +25,27 @@ class SharedPreHelper(context : Context) {
     }
 
     fun isLoggedIn(): Boolean{
-        return sharedPreferences.getBoolean(Key_Login, false)
+        return sharedPreferences.getBoolean(Key_Login, true)
     }
 
     fun logout(){
         sharedPreferences.edit().clear().apply()
     }
+
+    fun removeUsername(entity : String){
+        sharedPreferences.edit().remove(entity).apply()
+    }
+
+    fun savePassword(password : String){
+        sharedPreferences.edit().putString(Key_Password, password).apply()
+    }
+
+    fun getPassword() : String{
+        return sharedPreferences.getString(Key_Password, "") ?: ""
+    }
+
+    fun deleteEverything(){
+        sharedPreferences.edit().clear().apply()
+    }
+
 }
