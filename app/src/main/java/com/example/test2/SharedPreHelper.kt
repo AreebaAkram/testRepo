@@ -25,11 +25,11 @@ class SharedPreHelper(context : Context) {
     }
 
     fun isLoggedIn(): Boolean{
-        return sharedPreferences.getBoolean(Key_Login, true)
+        return sharedPreferences.getBoolean(Key_Login, false)
     }
 
     fun logout(){
-        sharedPreferences.edit().clear().apply()
+        sharedPreferences.edit().clear().apply() // delete everything
     }
 
     fun removeUsername(entity : String){
@@ -44,8 +44,6 @@ class SharedPreHelper(context : Context) {
         return sharedPreferences.getString(Key_Password, "") ?: ""
     }
 
-    fun deleteEverything(){
-        sharedPreferences.edit().clear().apply()
-    }
+
 
 }

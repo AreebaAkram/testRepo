@@ -261,8 +261,9 @@ fun LoginScreenVM(viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compo
         )
         Button(
             onClick = {
-                println("Username: ${viewModel.username}")
-                println("Password: ${viewModel.password}")
+//                println("Username: ${viewModel.username}")
+//                println("Password: ${viewModel.password}")
+                viewModel.login()
 
             },
             colors = androidx.compose.material3.ButtonDefaults.buttonColors(Color.Gray),
@@ -271,6 +272,21 @@ fun LoginScreenVM(viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compo
                 .fillMaxWidth()
         ) {
             Text("Login")
+        }
+        Button(
+            onClick = {
+                viewModel.loadUser()
+            }
+        ) {
+            Text("Load User ❤ ")
+        }
+
+        Button(
+            onClick = {
+                viewModel.logout()
+            }
+        ) {
+            Text("Logout 💔")
         }
     }
 }
